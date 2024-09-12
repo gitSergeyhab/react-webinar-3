@@ -42,8 +42,3 @@ export const plural = (form1, form2, form3, count) => {
   if (mod10 === 1) return `${count} ${form1}`;
   return `${count} ${form3}`;
 }
-
-for (let i=0; i<220; i++) {
-  console.log(i, plural('раз', 'раза', 'раз', i));
-  console.log(i, plural('нос', 'носа', 'носов', i))
-}
