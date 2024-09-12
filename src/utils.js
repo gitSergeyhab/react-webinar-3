@@ -28,7 +28,7 @@ export function createElement(name, props = {}, ...children) {
 }
 
 /**
- * выбирает слово на руссом в соответствии с числом
+ * выбирает слово в соответствии с числом
  * @param {string} form1
  * @param {string} form2
  * @param {string} form3
