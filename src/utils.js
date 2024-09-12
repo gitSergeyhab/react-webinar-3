@@ -26,3 +26,24 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+/**
+ * выбирает слово на руссом в соответствии с числом
+ * @param {string} form1
+ * @param {string} form2
+ * @param {string} form3
+ * @param {number} count
+ */
+export const plural = (form1, form2, form3, count) => {
+  const mod100 =  count % 100;
+  if (mod100 > 4 && mod100 < 21) return `${count} ${form3}`;
+  const mod10 =  count % 10;
+  if (mod10 > 1 && mod10 < 5) return `${count} ${form2}`;
+  if (mod10 === 1) return `${count} ${form1}`;
+  return `${count} ${form3}`;
+}
+
+for (let i=0; i<220; i++) {
+  console.log(i, plural('раз', 'раза', 'раз', i));
+  console.log(i, plural('нос', 'носа', 'носов', i))
+}

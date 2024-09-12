@@ -1,5 +1,5 @@
 import React from 'react';
-import { createElement } from './utils.js';
+import { createElement, plural } from './utils.js';
 import './styles.css';
 
 /**
@@ -9,6 +9,11 @@ import './styles.css';
  */
 function App({ store }) {
   const list = store.getState().list;
+
+  const onDelete = (e, code) => {
+    e.stopPropagation();
+    store.deleteItem(code)
+  }
 
   return (
     <div className="App">
@@ -28,12 +33,10 @@ function App({ store }) {
               >
                 <div className="Item-code">{item.code}</div>
                 <div className="Item-title">{item.title}
-                <span className="Item-select-counter">
-                {item.selectCount ? `Выделяли ${item.selectCount} раз` : null}
-                </span>
+                {item.selectCount ? ` | Выделяли ${plural('раз', 'раза', 'раз', item.selectCount)}` : null}
                 </div>
                 <div className="Item-actions">
-                  <button onClick={() => store.deleteItem(item.code)}>Удалить</button>
+                  <button onClick={(e) => onDelete(e, item.code)}>Удалить</button>
                 </div>
               </div>
             </div>
