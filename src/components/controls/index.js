@@ -2,20 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
 
-function Controls({ onAdd }) {
+function Controls({ openCart }) {
   return (
     <div className="Controls">
-      <button onClick={() => onAdd()}>Добавить</button>
+      <button onClick={() => openCart()}>Перейти</button>
     </div>
   );
 }
 
 Controls.propTypes = {
-  onAdd: PropTypes.func,
+  openCart: PropTypes.func,
 };
 
-Controls.defaultProps = {
-  onAdd: () => {},
-};
 
 export default React.memo(Controls);
