@@ -8,7 +8,7 @@ function Item(props) {
   const cn = bem('Item');
 
   const callbacks = {
-    onClick: () => props.onButtonClick(props.item),
+    onClick: () => props.onButtonClick(props.item.code),
   };
 
   return (

@@ -38,22 +38,23 @@ class Store {
     for (const listener of this.listeners) listener();
   }
 
-  addToCart(product) {
+  addToCart(code) {
+    const product = this.state.list.find(item => item.code === code)
     const cart = this.state.cart
-    const cartItem = cart.get(product.code)
+    const cartItem = cart.get(code)
 
     if (cartItem) {
-      cart.set(product.code, {...cartItem, count: cartItem.count + 1})
+      cart.set(code, {...cartItem, count: cartItem.count + 1})
     } else {
-      cart.set(product.code, {...product,  count: 1})
+      cart.set(code, {...product,  count: 1})
     }
 
     this.setState({...this.state, cart});
   }
 
-  deleteFromCart(product) {
+  deleteFromCart(code) {
     const cart = this.state.cart
-    cart.delete(product.code)
+    cart.delete(code)
     this.setState({...this.state, cart});
   }
 }
