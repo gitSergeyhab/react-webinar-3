@@ -33,7 +33,7 @@ export const generateCode = (function (start = 0) {
 export const getCartInfo = (cartMap) => [...cartMap.values()]
   .reduce((acc, item) => {
     const sum = acc.sum + item.price * item.count;
-    const count = acc.count + item.count;
+    const count = acc.count + (item.count ? 1 : 0);
     return {sum, count}
   }, {sum: 0, count:0})
 
