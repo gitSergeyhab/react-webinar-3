@@ -39,13 +39,17 @@ class Store {
   }
 
   addToCart(code) {
-    const product = this.state.list.find(item => item.code === code)
     const cart = this.state.cart
     const cartItem = cart.get(code)
 
     if (cartItem) {
       cart.set(code, {...cartItem, count: cartItem.count + 1})
     } else {
+      const product = this.state.list.find(item => item.code === code)
+      if (!product) {
+        console.error(`Товар с кодом ${code} не найден в списке товаров`);
+        return;
+      }
       cart.set(code, {...product,  count: 1})
     }
 
@@ -54,6 +58,11 @@ class Store {
 
   deleteFromCart(code) {
     const cart = this.state.cart
+    const product = cart.get(code)
+    if (!product) {
+      console.error(`Товар с кодом ${code} не найден в корзине`)
+      return;
+    }
     cart.delete(code)
     this.setState({...this.state, cart});
   }
