@@ -45,7 +45,11 @@ export const getCartInfo = (cartMap) => [...cartMap.values()]
    */
   export const formatNumber = (price) => price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
 
-
+/**
+ * формирует информацию по корзине
+ * @param {{sum: number, count: number}} param0
+ * @returns {string}
+ */
   export const getCartInfoText = ({sum, count}) => {
     if (!count) return 'Пусто';
     return `${count} ${plural(count, {one: 'товар', few: 'товара', many: 'товаров'})} / ${formatNumber(sum)} ₽`
