@@ -28,8 +28,8 @@ List.propTypes = {
       code: PropTypes.number,
     }),
   ).isRequired,
-  onButtonClick: PropTypes.func,
-  buttonItemTitle: PropTypes.string,
+  onButtonClick: PropTypes.func.isRequired,
+  buttonItemTitle: PropTypes.string.isRequired,
 
 };
 

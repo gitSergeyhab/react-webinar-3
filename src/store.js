@@ -33,55 +33,27 @@ class Store {
    * @param newState {Object}
    */
   setState(newState) {
-    console.log({newState})
     this.state = newState;
     // Вызываем всех слушателей
     for (const listener of this.listeners) listener();
   }
 
-  // addToCart(code) {
-  //   const cart = this.state.cart
-  //   const productDict = this.state.list.reduce((acc, item) => {
-  //     acc[item.code] = item;
-  //     return acc;
-  //   }, {})
-
-  //   if (cart[code]?.count) {
-  //     cart[code].count += 1
-  //   } else {
-  //     cart[code] = {...productDict[code],  count: 1}
-  //   }
-  //   this.setState({...this.state,cart});
-  // }
-
-
-  addToCart(code) {
+  addToCart(product) {
     const cart = this.state.cart
-    const cartItem = cart.get(code)
-    const productDict = this.state.list.reduce((acc, item) => {
-      acc[item.code] = item;
-      return acc;
-    }, {})
+    const cartItem = cart.get(product.code)
 
     if (cartItem) {
-      cart.set(code, {...cartItem, count: cartItem.count + 1})
+      cart.set(product.code, {...cartItem, count: cartItem.count + 1})
     } else {
-      cart.set(code, {...productDict[code],  count: 1})
+      cart.set(product.code, {...product,  count: 1})
     }
 
     this.setState({...this.state, cart});
   }
 
-  deleteFromCart(code) {
+  deleteFromCart(product) {
     const cart = this.state.cart
-    const cartItem = cart.get(code)
-
-    if (cartItem && cartItem.count > 1) {
-      cart.set(code, {...cartItem, count: cartItem - 1})
-    } else if (cartItem) {
-      cart.delete(code)
-    }
-
+    cart.delete(product.code)
     this.setState({...this.state, cart});
   }
 }

@@ -1,0 +1,14 @@
+.CartResult {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: end;
+  align-items: center;
+  font-weight: 700;
+  min-height: 4rem;
+  margin-right: 104px;
+}
+
+.CartResult-sum {
+  min-width: 100px;
+  text-align: end;
+}

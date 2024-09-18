@@ -7,17 +7,14 @@ function Modal(props) {
   const cn = bem('Modal');
 
   useEffect(() => {
-
     const onEscape = (e) => {
-      if (e.key === 'Escape') {
-        props.onClose()
-      }
+      if (e.key === 'Escape') props.onClose()
     }
+
     document.body.addEventListener('keydown', onEscape)
 
     return () => {
       document.body.removeEventListener('keydown', onEscape)
-
     }
   }, [])
 
@@ -32,9 +29,7 @@ function Modal(props) {
 
 Modal.propTypes = {
   children: PropTypes.node,
-  onClose: PropTypes.func
+  onClose: PropTypes.func.isRequired,
 };
 
-
-
-export default Modal
+export default React.memo(Modal)

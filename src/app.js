@@ -1,9 +1,12 @@
 import React, { useCallback, useState } from 'react';
 import List from './components/list';
-import Controls from './components/controls';
 import Head from './components/head';
 import PageLayout from './components/page-layout';
-import CartModal from './components/cart-modal';
+import { getCartInfo } from './utils';
+import CartInfo from './components/cart-info';
+import Portal from './components/portal';
+import Modal from './components/modal';
+import Cart from './components/cart';
 
 /**
  * Приложение
@@ -13,9 +16,8 @@ import CartModal from './components/cart-modal';
 function App({ store }) {
   const list = store.getState().list;
   const cart = store.getState().cart
-  const [isModalOpen, setModalOpen] = useState(false)
-
-  console.log({isModalOpen})
+  const [isModalOpen, setModalOpen] = useState(false);
+  const {count, sum } = getCartInfo(cart)
 
   const callbacks = {
     onAddToCart: useCallback((code) => {
@@ -37,19 +39,28 @@ function App({ store }) {
 
   return (
     <PageLayout>
-      <Head><h1>Магазин</h1></Head>
-      <Controls openCart={callbacks.onOpenModal} />
+      <Head title='Магазин'/>
+      <CartInfo
+        count={count}
+        sum={sum}
+        onOpenModal={callbacks.onOpenModal}
+      />
       <List
         list={list}
         onButtonClick={callbacks.onAddToCart}
         buttonItemTitle='Добавить'
       />
       {isModalOpen && (
-        <CartModal
-          cart={cart}
-          onCloseModal={callbacks.onCloseModal}
-          onDeleteFromCart={callbacks.onDeleteFromCart}
-        />
+        <Portal selector='#modal'>
+          <Modal onClose={callbacks.onCloseModal}>
+            <Cart
+              onClose={callbacks.onCloseModal}
+              onDeleteCartItem={callbacks.onDeleteFromCart}
+              cart={cart}
+              sum={sum}
+            />
+          </Modal>
+        </Portal>
         )}
     </PageLayout>
   );

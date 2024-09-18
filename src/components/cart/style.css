@@ -4,8 +4,15 @@
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
   display: flex;
   flex-direction: column;
-  max-height: 30rem;
+  max-height: 50rem;
   overflow: hidden;
+  margin: 0 2rem;
+}
+
+@media (max-width: 768px) {
+  .Cart {
+    margin: 0;
+  }
 }
 
 .Cart-closeBtn {
@@ -20,4 +27,13 @@
 
 .Cart-empty {
   text-align: center;
+}
+
+.Cart-header {
+  height: 80px;
+  background: #f5f5f5;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 20px;
 }

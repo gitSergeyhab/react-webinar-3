@@ -7,8 +7,8 @@ function Portal(props) {
 }
 
 Portal.propTypes = {
-  selector: PropTypes.string,
-  children: PropTypes.node,
+  selector: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
 };
 
 export default Portal

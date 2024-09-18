@@ -28,5 +28,9 @@
 
 .Item-numbers {
   display: flex;
-  gap: 1rem;
+}
+
+.Item-count {
+  min-width: 100px;
+  text-align: end;
 }

@@ -1,0 +1,12 @@
+.CartInfo {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: end;
+  align-items: center;
+  min-height: 4rem;
+}
+
+.CartInfo-number {
+  margin-left: 1rem;
+  font-weight: 700;
+}

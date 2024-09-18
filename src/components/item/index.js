@@ -1,16 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
+import { formatNumber } from '../../utils';
 import './style.css';
-
 
 function Item(props) {
   const cn = bem('Item');
 
   const callbacks = {
-    onClick: () => {
-      props.onButtonClick(props.item.code);
-    },
+    onClick: () => props.onButtonClick(props.item),
   };
 
   return (
@@ -19,9 +17,9 @@ function Item(props) {
       <div className={cn('content')}>
         <span>{props.item.title}</span>
         <div className={cn('numbers')}>
-          <span>{props.item.price} &#8381;</span>
+          <div>{formatNumber(props.item.price)} &#8381;</div>
           {
-            props.item.count ? <span>{props.item.count} шт</span> : null
+            props.item.count ? <div className={cn('count')}>{props.item.count} шт</div> : null
           }
         </div>
 
@@ -38,13 +36,10 @@ Item.propTypes = {
     code: PropTypes.number,
     title: PropTypes.string,
     count: PropTypes.number,
+    price: PropTypes.number,
   }).isRequired,
-  onButtonClick: PropTypes.func,
-  buttonTitle: PropTypes.string,
+  onButtonClick: PropTypes.func.isRequired,
+  buttonTitle: PropTypes.string.isRequired,
 };
-
-// Item.defaultProps = {
-//   onButtonClick: () => {},
-// };
 
 export default React.memo(Item);

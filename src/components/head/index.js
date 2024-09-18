@@ -2,16 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
 
-function Head({ children }) {
+function Head({ title }) {
   return (
     <div className="Head">
-      {children}
+      <h1>{title}</h1>
     </div>
   );
 }
 
 Head.propTypes = {
-  children: PropTypes.node,
+  title: PropTypes.node,
 };
 
 export default React.memo(Head);
