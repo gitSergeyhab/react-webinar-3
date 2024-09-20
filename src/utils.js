@@ -25,19 +25,6 @@ export const generateCode = (function (start = 0) {
   return () => ++start;
 })();
 
-/**
- * Вычисляет цену и количество всех продуктов в корзине
- * @param {Map} cartMap
- * @returns {{sum: 0, count:0}}
- */
-export const getCartInfo = (cartMap) => [...cartMap.values()]
-  .reduce((acc, item) => {
-    const sum = acc.sum + item.price * item.count;
-    const count = acc.count + (item.count ? 1 : 0);
-    return {sum, count}
-  }, {sum: 0, count:0})
-
-
   /**
    *  возвращает число в формате строки 1234567 => '1 234 567'
    * @param {number} price

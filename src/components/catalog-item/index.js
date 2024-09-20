@@ -4,11 +4,11 @@ import { cn as bem } from '@bem-react/classname';
 import { formatNumber } from '../../utils';
 import './style.css';
 
-function Item(props) {
+function CatalogItem(props) {
   const cn = bem('Item');
 
   const callbacks = {
-    onClick: () => props.onButtonClick(props.item.code),
+    onClick: () => props.onAddToCart(props.item.code),
   };
 
   return (
@@ -18,28 +18,22 @@ function Item(props) {
         <span>{props.item.title}</span>
         <div className={cn('numbers')}>
           <div>{formatNumber(props.item.price)} &#8381;</div>
-          {
-            props.item.count ? <div className={cn('count')}>{props.item.count} шт</div> : null
-          }
         </div>
-
       </div>
       <div className={cn('actions')}>
-        <button onClick={callbacks.onClick}>{props.buttonTitle}</button>
+        <button onClick={callbacks.onClick}>Добавить</button>
       </div>
     </div>
   );
 }
 
-Item.propTypes = {
+CatalogItem.propTypes = {
   item: PropTypes.shape({
     code: PropTypes.number,
     title: PropTypes.string,
-    count: PropTypes.number,
     price: PropTypes.number,
   }).isRequired,
-  onButtonClick: PropTypes.func.isRequired,
-  buttonTitle: PropTypes.string.isRequired,
+  onAddToCart: PropTypes.func.isRequired,
 };
 
-export default React.memo(Item);
+export default React.memo(CatalogItem);

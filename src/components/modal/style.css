@@ -9,8 +9,11 @@
   justify-content: center;
   align-items: center;
   z-index: 9999;
+  overflow: hidden;
 }
 
 .Modal-content {
   width: 1024px;
+  max-height: 90vh;
+  overflow-y: hidden;
 }

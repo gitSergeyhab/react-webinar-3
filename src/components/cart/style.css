@@ -4,9 +4,9 @@
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
   display: flex;
   flex-direction: column;
-  max-height: 50rem;
-  overflow: hidden;
   margin: 0 2rem;
+  max-height: inherit;
+  overflow-y: auto;
 }
 
 @media (max-width: 768px) {
@@ -22,7 +22,12 @@
 .Cart-content {
   min-height: 12rem;
   padding: 4rem 0;
-  overflow: auto;
+}
+
+@media (max-height: 500px) {
+  .Cart-content {
+    padding: 0;
+  }
 }
 
 .Cart-empty {
@@ -36,5 +41,17 @@
   justify-content: space-between;
   align-items: center;
   padding-left: 20px;
-  font-size: 1.3rem;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+@media (max-height: 400px) {
+  .Cart-header {
+    height: 50px;
+  }
+}
+
+.Cart-header h2 {
+  font-size: 32px;
+  line-height: 37px;
 }

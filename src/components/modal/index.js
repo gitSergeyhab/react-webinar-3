@@ -12,9 +12,11 @@ function Modal(props) {
     }
 
     document.body.addEventListener('keydown', onEscape)
+    document.body.style.setProperty('overflow-y', 'hidden');
 
     return () => {
       document.body.removeEventListener('keydown', onEscape)
+      document.body.style.removeProperty('overflow-y');
     }
   }, [])
 
