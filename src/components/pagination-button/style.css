@@ -1,0 +1,26 @@
+.PaginationItem {
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+  height: 20px;
+  min-width: 20px;
+  transition: background-color ease-in-out 0.3s;
+}
+
+.PaginationItem:hover {
+  background-color: #e1e1e1;
+}
+
+.PaginationItem:disabled {
+  background-color: #0087e9;
+  color: #ffffff;
+  cursor: default;
+}
+
+.PaginationItem_points {
+  color: #cccccc;
+}
+
+.PaginationItem_points:hover {
+  color: #000;
+}

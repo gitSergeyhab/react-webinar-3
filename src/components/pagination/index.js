@@ -1,44 +1,42 @@
-import { memo, useState } from 'react';
-import PropTypes from 'prop-types';
+import { memo, useMemo } from 'react';
 import { cn as bem } from '@bem-react/classname';
-import { numberFormat } from '../../utils';
+import useStore from '../../store/use-store';
+import useSelector from '../../store/use-selector';
+import PaginationButton from '../pagination-button';
+import { getPagesData } from '../../utils';
 import './style.css';
-import { Link } from 'react-router-dom';
 
-function Item(props) {
-  const cn = bem('Item');
+function Pagination() {
+  const cn = bem('Pagination');
+
+  const store = useStore();
+
+  const {count, limit, skip} = useSelector(state => ({
+    count: state.catalog.count,
+    limit: state.catalog.limit,
+    skip: state.catalog.skip,
+  }));
+
+  const pages = useMemo(
+    () => getPagesData(limit, skip, count), [limit, skip, count]
+  );
 
   const callbacks = {
-    onAdd: e => { e.stopPropagation(); props.onAdd(props.item._id)},
+    onClick: (page) => store.actions.catalog.changePage(page),
   };
 
   return (
     <div className={cn()}>
-      <Link
-        to={`/products/${props.item._id}`}
-        className={cn('title')}
-      >
-        {props.item.title}
-      </Link>
-      <div className={cn('actions')}>
-        <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
-        <button onClick={callbacks.onAdd}>Добавить</button>
-      </div>
+      {pages.map(({page, value, isCurrent}) => (
+        <PaginationButton
+          key={page}
+          value={value}
+          isCurrent={isCurrent}
+          onClick={() => callbacks.onClick(page)}
+        />
+      ))}
     </div>
   );
 }
 
-Item.propTypes = {
-  item: PropTypes.shape({
-    _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    title: PropTypes.string,
-    price: PropTypes.number,
-  }).isRequired,
-  onAdd: PropTypes.func,
-};
-
-Item.defaultProps = {
-  onAdd: () => {},
-};
-
-export default memo(Item);
+export default memo(Pagination);

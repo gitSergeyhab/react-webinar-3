@@ -1,21 +1,16 @@
-import { memo, useCallback, useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { memo, useCallback, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import PageLayout from '../../components/page-layout';
 import Head from '../../components/head';
 import { useFetchProduct } from './useFetchProduct';
 import BasketTool from '../../components/basket-tool';
 import useStore from '../../store/use-store';
 import useSelector from '../../store/use-selector';
-import { cn as bem } from '@bem-react/classname';
-import './style.css';
 import ProductContent from '../../components/product-content';
 import { getTitle } from '../../utils';
 
-
 function Product() {
-  const cn = bem('Product');
-
-  const {id} = useParams();
+  const { id } = useParams();
   const store = useStore();
 
   useEffect(() => {
@@ -32,20 +27,17 @@ function Product() {
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
   };
 
-  const {error, loading, product} = useFetchProduct(id);
-
-  const pageTitle = getTitle(product?.title, error, loading);
+  const {error, isLoading, product} = useFetchProduct(id);
+  const pageTitle = getTitle(product?.title, error, isLoading);
 
   return (
     <PageLayout>
       <Head title={pageTitle} />
-      <div className={cn('top')}>
-        <Link to="/">Главная</Link>
-        <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
-      </div>
+      <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
       <ProductContent
         product={product}
         addToBasket={callbacks.addToBasket}
+        isLoading={isLoading}
       />
     </PageLayout>
   );

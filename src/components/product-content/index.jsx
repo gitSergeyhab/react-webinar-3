@@ -1,4 +1,3 @@
-
 import { memo } from 'react';
 import { cn as bem } from '@bem-react/classname';
 import PropTypes from 'prop-types';
@@ -6,11 +5,12 @@ import ProductProperty from '../product-property';
 import { numberFormat } from '../../utils';
 import './style.css';
 
-
-function ProductContent({ product, addToBasket}) {
+function ProductContent({ product, addToBasket, isLoading}) {
   const cn = bem('ProductContent');
+  if(isLoading) {
+    return <div className={cn()}>Загрузка...</div>
+  }
   if (!product) return null
-  console.log({product});
 
   const {madeIn, category, description, edition, price, _id} = product
   return (
@@ -26,9 +26,10 @@ function ProductContent({ product, addToBasket}) {
 }
 
 ProductContent.propTypes = {
+  isLoading: PropTypes.bool,
   product: PropTypes.shape({
-    price: PropTypes.number.isRequired,
-    edition: PropTypes.string,
+    price: PropTypes.number,
+    edition: PropTypes.number,
     description: PropTypes.string,
     category: PropTypes.shape({
       title: PropTypes.string,
@@ -39,8 +40,5 @@ ProductContent.propTypes = {
   }).isRequired,
   addToBasket: PropTypes.func,
 };
-
-
-
 
 export default memo(ProductContent);
