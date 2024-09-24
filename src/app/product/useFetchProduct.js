@@ -21,10 +21,5 @@ export const useFetchProduct = (id) => {
       });
   }, [id]);
 
-  return {
-    product,
-    error,
-    isLoading,
-  };
-
+  return { product, error, isLoading};
 }

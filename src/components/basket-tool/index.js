@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom';
 import { useTranslate } from '../../hooks/useTranslate';
 import './style.css';
 
-
 function BasketTool({ sum, amount, onOpen }) {
   const cn = bem('BasketTool');
   const translate = useTranslate()

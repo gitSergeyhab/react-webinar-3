@@ -12,10 +12,7 @@ import { getTitle } from '../../utils';
 function Product() {
   const { id } = useParams();
   const store = useStore();
-
-  useEffect(() => {
-    store.actions.catalog.load();
-  }, []);
+  const {error, isLoading, product} = useFetchProduct(id);
 
   const select = useSelector(state => ({
     amount: state.basket.amount,
@@ -27,7 +24,6 @@ function Product() {
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
   };
 
-  const {error, isLoading, product} = useFetchProduct(id);
   const pageTitle = getTitle(product?.title, error, isLoading);
 
   return (

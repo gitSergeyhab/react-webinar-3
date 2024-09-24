@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom';
 import { useTranslate } from '../../hooks/useTranslate';
 import './style.css';
 
-
 function Item(props) {
   const cn = bem('Item');
   const translate = useTranslate()
