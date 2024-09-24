@@ -13,7 +13,7 @@ class Catalog extends StoreModule {
       list: [],
       limit: ARTICLES_LIMIT,
       skip: ARTICLES_SKIP,
-      count:0
+      count: 0
     };
   }
 

@@ -31,7 +31,7 @@ function Product() {
   const pageTitle = getTitle(product?.title, error, isLoading);
 
   return (
-    <PageLayout>
+    <PageLayout >
       <Head title={pageTitle} />
       <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
       <ProductContent

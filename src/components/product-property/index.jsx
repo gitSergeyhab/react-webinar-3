@@ -1,4 +1,3 @@
-
 import { memo } from 'react';
 import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
@@ -9,7 +8,7 @@ function ProductProperty({ name, value }) {
 
   return (
     <div className={cn()}>
-      <div className={cn('name')}>{name}</div>
+      <div className={cn('name')}>{name}:</div>
       <div className={cn('value')}>{value}</div>
     </div>
   );

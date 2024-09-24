@@ -1,0 +1,17 @@
+export const ruDict = {
+  main: 'Главная',
+  product: {one: 'товар', few: 'товара', many: 'товаров'},
+  go: 'Перейти',
+  basket: 'Корзина',
+  add: 'Добавить',
+  inCart: 'В корзине',
+  store: 'Магазин',
+  result: 'Итого',
+  close: 'Закрыть',
+  delete: 'Удалить',
+  empty: 'пусто',
+  madeIn: 'Страна производитель',
+  category: 'Категория',
+  edition: 'Год выпуска',
+  price: 'Цена',
+}

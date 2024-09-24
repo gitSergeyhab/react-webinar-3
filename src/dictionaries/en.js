@@ -1,0 +1,17 @@
+export const enDict = {
+  main: 'Main',
+  product: {one: 'product', other: 'products'},
+  go: 'Go',
+  basket: 'Basket',
+  add: 'Add',
+  inCart: 'In cart',
+  store: 'Store',
+  result: 'Result',
+  close: 'Close',
+  delete: 'Delete',
+  empty: 'empty',
+  madeIn: 'Made in',
+  category: 'Category',
+  edition: 'Edition',
+  price: 'Price',
+}

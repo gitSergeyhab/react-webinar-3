@@ -4,9 +4,12 @@ import PropTypes from 'prop-types';
 import ProductProperty from '../product-property';
 import { numberFormat } from '../../utils';
 import './style.css';
+import { useTranslate } from '../../hooks/useTranslate';
 
 function ProductContent({ product, addToBasket, isLoading}) {
   const cn = bem('ProductContent');
+  const translate = useTranslate()
+
   if(isLoading) {
     return <div className={cn()}>Загрузка...</div>
   }
@@ -16,11 +19,11 @@ function ProductContent({ product, addToBasket, isLoading}) {
   return (
     <div className={cn()}>
       <p className={cn('description')}>{description}</p>
-      <ProductProperty name='Страна производитель' value={madeIn.title}/>
-      <ProductProperty name='Категория' value={category.title}/>
-      <ProductProperty name='Год выпуска' value={edition}/>
-      <div className={cn('price')}>Цена: {numberFormat(price)} ₽</div>
-      <button onClick={() => addToBasket(_id, product)}>Добавить</button>
+      <ProductProperty name={translate('madeIn')} value={madeIn.title}/>
+      <ProductProperty name={translate('category')} value={category.title}/>
+      <ProductProperty name={translate('edition')} value={edition}/>
+      <div className={cn('price')}>{translate('price')}: {numberFormat(price)} ₽</div>
+      <button onClick={() => addToBasket(_id, product)}>{translate('add')}</button>
     </div>
   );
 }
