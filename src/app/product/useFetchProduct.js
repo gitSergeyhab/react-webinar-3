@@ -7,7 +7,7 @@ export const useFetchProduct = (id) => {
 
   useEffect(() => {
     setIsLoading(true);
-    fetch(`/api/v1/articles/${id}?fields=*,madeIn(title),category(title)`)
+    fetch(`/api/v1/articles/${id}?fields=_id,title,edition,price,description,madeIn(title),category(title)`)
       .then((response) => response.json())
       .then((data) => {
         setProduct(data.result);
