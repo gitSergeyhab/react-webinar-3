@@ -33,3 +33,9 @@ export function codeGenerator(start = 0) {
 export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
+
+export const getTitle = (value, error, isLoading) => {
+  if (isLoading) return 'Загрузка...';
+  if (error) return 'Произошла ошибка';
+  return value;
+}

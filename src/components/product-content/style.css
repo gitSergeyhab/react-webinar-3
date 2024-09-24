@@ -1,0 +1,15 @@
+.ProductContent {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  padding: 20px 40px;
+  gap: 20px;
+}
+.ProductContent-description {
+  margin: 0;
+}
+
+.ProductContent-price {
+  font-weight: 700;
+  font-size: 1.5rem;
+}
