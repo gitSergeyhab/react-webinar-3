@@ -6,7 +6,7 @@ import PaginationButton from '../pagination-button';
 import { getPagesData } from '../../utils';
 import './style.css';
 
-function LanguageButton() {
+function Pagination() {
   const cn = bem('Pagination');
   const store = useStore();
 
@@ -38,4 +38,4 @@ function LanguageButton() {
   );
 }
 
-export default memo(LanguageButton);
+export default memo(Pagination);
