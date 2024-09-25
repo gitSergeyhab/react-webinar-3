@@ -6,16 +6,22 @@ class Product extends StoreModule {
     return {
       data: null,
       error: '',
-      isLoading: false
+      isLoading: false,
+      cash: {}
     };
   }
 
+  getFromCash(id) {
+    const product = this.getState().cash[id];
+    return product || null;
+  }
   async load(id) {
     try {
       this.setState({...this.getState(), isLoading: true});
       const response = await fetch(getArticleUri(id));
       const json = await response.json();
-      this.setState({...this.getState(), data: json.result, error: ''});
+      const cash = {...this.getState().cash, [id]: json.result }
+      this.setState({...this.getState(), data: json.result, error: '', cash });
     } catch (e) {
       console.error(e);
       this.setState({...this.getState(), error: 'Произошла ошибка'});
@@ -23,8 +29,17 @@ class Product extends StoreModule {
       this.setState({...this.getState(), isLoading: false});
     }
   }
+
+  async setProduct(id) {
+    const cashedProduct = this.getFromCash(id);
+    if (cashedProduct) {
+      this.setState({...this.getState(), data: cashedProduct, error: ''});
+      return;
+    }
+    await this.load(id);
+  }
   clear() {
-    this.setState({ data: null, isLoading: false, error: '' });
+    this.setState({ ...this.getState(), data: null, isLoading: false, error: '' });
   }
 }
 

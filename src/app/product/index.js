@@ -13,7 +13,7 @@ function Product() {
   const store = useStore();
 
   useEffect(() => {
-    store.actions.product.load(id);
+    store.actions.product.setProduct(id);
     return () => {
       store.actions.product.clear()
     };
