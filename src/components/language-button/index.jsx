@@ -1,27 +1,26 @@
 import { memo } from 'react';
 import { cn as bem } from '@bem-react/classname';
-import useStore from '../../store/use-store';
-import useSelector from '../../store/use-selector';
 import { languageDict } from '../../const';
+import PropTypes from 'prop-types';
 import './style.css';
 
-function LanguageButton({langKey}) {
+function LanguageButton({langKey, isCurrent, onClick}) {
   const cn = bem('LanguageButton');
-  const store = useStore()
-  const currentLangKey = useSelector(state => state.language.key);
-
-  const callbacks = {
-    changeLanguage: (lang) => store.actions.language.setLanguage(lang),
-  };
 
   return (
     <button
-      className={cn({current: langKey === currentLangKey})}
-      onClick={() => callbacks.changeLanguage(langKey)}
+      className={cn({current: isCurrent})}
+      onClick={onClick}
     >
       {languageDict[langKey].name}
     </button>
   );
 }
+
+LanguageButton.propTypes = {
+  langKey: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired,
+  isCurrent: PropTypes.bool.isRequired,
+};
 
 export default memo(LanguageButton);
