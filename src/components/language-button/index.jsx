@@ -1,7 +1,7 @@
 import { memo } from 'react';
 import { cn as bem } from '@bem-react/classname';
-import { languageDict } from '../../const';
 import PropTypes from 'prop-types';
+import { languageDict } from '../../const';
 import './style.css';
 
 function LanguageButton({langKey, isCurrent, onClick}) {

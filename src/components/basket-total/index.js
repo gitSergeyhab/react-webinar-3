@@ -18,7 +18,7 @@ function BasketTotal({ sum, label }) {
 
 BasketTotal.propTypes = {
   sum: PropTypes.number,
-  label: PropTypes.func,
+  label: PropTypes.string,
 };
 
 BasketTotal.defaultProps = {

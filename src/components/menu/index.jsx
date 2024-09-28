@@ -22,9 +22,9 @@ function Menu({ menuItems=[] }) {
 
 Menu.propTypes = {
   menuItems: PropTypes.arrayOf(PropTypes.shape({
-    title: PropTypes.string,
-    href: PropTypes.string
-  }))
+    title: PropTypes.string.isRequired,
+    href: PropTypes.string.isRequired
+  })).isRequired
 };
 
 

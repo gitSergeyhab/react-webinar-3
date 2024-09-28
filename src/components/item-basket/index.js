@@ -3,8 +3,9 @@ import { Link } from 'react-router-dom';
 import propTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import PropTypes from 'prop-types';
-import './style.css';
 import { numberFormat } from '../../utils/number-utils';
+import './style.css';
+
 
 function ItemBasket(props) {
   const cn = bem('ItemBasket');
