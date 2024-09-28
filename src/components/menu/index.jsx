@@ -2,11 +2,8 @@ import { memo } from 'react';
 import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import { Link } from 'react-router-dom';
-import { noTranslate } from '../../utils/translate-plural-utils';
 
-const menuItems = [{ title: 'main', href: '/' }]
-
-function Menu({ translate=noTranslate }) {
+function Menu({ menuItems=[] }) {
   const cn = bem('Menu');
   return (
     <nav className={cn()}>
@@ -16,7 +13,7 @@ function Menu({ translate=noTranslate }) {
           key={title}
           to={href}
         >
-          {translate(title)}
+          {title}
         </Link>
       ))}
     </nav>
@@ -24,7 +21,10 @@ function Menu({ translate=noTranslate }) {
 }
 
 Menu.propTypes = {
-  translate: PropTypes.func
+  menuItems: PropTypes.arrayOf(PropTypes.shape({
+    title: PropTypes.string,
+    href: PropTypes.string
+  }))
 };
 
 

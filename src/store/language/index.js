@@ -1,5 +1,5 @@
 import { languages } from '../../const';
-import { getLanguageFromStorage, setLanguageToStorage } from '../../utils';
+import { getLanguageFromStorage, setLanguageToStorage } from '../../utils/translate-utils';
 import StoreModule from '../module';
 
 class Language extends StoreModule {

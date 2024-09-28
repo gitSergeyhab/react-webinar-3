@@ -1,4 +1,4 @@
-import { memo, useCallback, useEffect } from 'react';
+import { memo, useCallback, useEffect, useMemo } from 'react';
 import Item from '../../components/item';
 import PageLayout from '../../components/page-layout';
 import Head from '../../components/head';
@@ -10,6 +10,7 @@ import Pagination from '../../components/pagination';
 import MenuBasketTool from '../../components/menu-basket-tool';
 import Menu from '../../components/menu';
 import { useTranslate } from '../../hooks/use-translate';
+import { menuItems } from '../../const';
 
 function Main() {
   const store = useStore();
@@ -38,22 +39,39 @@ function Main() {
   const renders = {
     item: useCallback(
       item => {
-        return <Item item={item} onAdd={callbacks.addToBasket} />;
+        return (
+          <Item
+            item={item}
+            onAdd={callbacks.addToBasket}
+            href={`/products/${item._id}`}
+            buttonText={translate('add')}
+          />
+        );
       },
-      [callbacks.addToBasket],
+      [callbacks.addToBasket, select.lang],
     ),
   };
+
+  const mainMenuItems = useMemo(() => menuItems.map(({ title, href }) => ({
+    title: translate(title), href
+  })));
 
   return (
     <PageLayout>
       <Head title={translate('store')}/>
       <MenuBasketTool>
-        <Menu translate={translate} />
+        <Menu menuItems={mainMenuItems} />
         <BasketTool
           onOpen={callbacks.openModalBasket}
           amount={select.amount}
           sum={select.sum}
-          translate={translate}
+          label={{
+            inCart: translate('inCart'),
+            totalAmount: translate('product', select.amount),
+            totalEmpty: translate('empty'),
+            buttonText: translate('go'),
+          }}
+
         />
       </MenuBasketTool>
       <List list={select.list} renderItem={renders.item} />

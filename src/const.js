@@ -14,3 +14,4 @@ export const languageDict = {
   }
 }
 export const languages = ['ru', 'en']
+export const menuItems = [{ title: 'main', href: '/' }]

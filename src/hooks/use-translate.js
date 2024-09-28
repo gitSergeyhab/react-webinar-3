@@ -1,5 +1,5 @@
 import useSelector from "../store/use-selector";
-import { translate } from "../utils/translate-plural-utils";
+import { translate } from "../utils/translate-utils";
 
 export const useTranslate = () => {
   const {lang} = useSelector(state => ({

@@ -2,12 +2,11 @@ import { memo } from 'react';
 import { cn as bem } from '@bem-react/classname';
 import PropTypes from 'prop-types';
 import ProductProperty from '../product-property';
-import { numberFormat } from '../../utils';
-import { noTranslate } from '../../utils/translate-plural-utils';
 import './style.css';
+import { numberFormat } from '../../utils/number-utils';
 
 
-function ProductContent({ product, addToBasket, isLoading, translate = noTranslate}) {
+function ProductContent({ product, addToBasket, isLoading, label}) {
   const cn = bem('ProductContent');
 
   if(isLoading) {
@@ -19,17 +18,24 @@ function ProductContent({ product, addToBasket, isLoading, translate = noTransla
   return (
     <div className={cn()}>
       <p className={cn('description')}>{description}</p>
-      <ProductProperty name={translate('madeIn')} value={madeIn.title}/>
-      <ProductProperty name={translate('category')} value={category.title}/>
-      <ProductProperty name={translate('edition')} value={edition}/>
-      <div className={cn('price')}>{translate('price')}: {numberFormat(price)} ₽</div>
-      <button onClick={() => addToBasket(_id, product)}>{translate('add')}</button>
+      <ProductProperty name={label.madeIn} value={madeIn.title}/>
+      <ProductProperty name={label.category} value={category.title}/>
+      <ProductProperty name={label.edition} value={edition}/>
+      <div className={cn('price')}>{label.price}: {numberFormat(price)} ₽</div>
+      <button onClick={() => addToBasket(_id, product)}>{label.buttonText}</button>
     </div>
   );
 }
 
 ProductContent.propTypes = {
   isLoading: PropTypes.bool,
+  label: PropTypes.shape({
+    madeIn: PropTypes.string,
+    buttonText: PropTypes.string,
+    price: PropTypes.string,
+    category: PropTypes.string,
+    edition: PropTypes.string
+  }),
   product: PropTypes.shape({
     price: PropTypes.number,
     edition: PropTypes.number,
@@ -42,7 +48,6 @@ ProductContent.propTypes = {
     }),
   }).isRequired,
   addToBasket: PropTypes.func,
-  translate: PropTypes.func
 };
 
 export default memo(ProductContent);

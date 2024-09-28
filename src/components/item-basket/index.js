@@ -3,14 +3,11 @@ import { Link } from 'react-router-dom';
 import propTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import PropTypes from 'prop-types';
-import { numberFormat } from '../../utils';
-import { noTranslate } from '../../utils/translate-plural-utils';
 import './style.css';
-
+import { numberFormat } from '../../utils/number-utils';
 
 function ItemBasket(props) {
   const cn = bem('ItemBasket');
-  const translate = props.translate || noTranslate
 
   const callbacks = {
     onRemove: e => props.onRemove(props.item._id),
@@ -19,7 +16,7 @@ function ItemBasket(props) {
   return (
     <div className={cn()}>
       <Link
-        to={`/products/${props.item._id}`}
+        to={props.href}
         className={cn('title')}
         onClick={props.onClick}
       >
@@ -29,7 +26,7 @@ function ItemBasket(props) {
         <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>
         <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} шт</div>
         <div className={cn('cell')}>
-          <button onClick={callbacks.onRemove}>{translate('delete')}</button>
+          <button onClick={callbacks.onRemove}>{props.buttonText}</button>
         </div>
       </div>
     </div>
@@ -45,7 +42,8 @@ ItemBasket.propTypes = {
   }).isRequired,
   onRemove: propTypes.func,
   onClick: propTypes.func,
-  translate: PropTypes.func,
+  href: PropTypes.string.isRequired,
+  buttonText: PropTypes.string,
 };
 
 ItemBasket.defaultProps = {

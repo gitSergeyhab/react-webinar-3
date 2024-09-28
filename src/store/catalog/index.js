@@ -1,5 +1,6 @@
 import { ARTICLES_LIMIT, ARTICLES_SKIP } from '../../const';
-import { codeGenerator, getArticlesUri } from '../../utils';
+import { getArticlesUri } from '../../utils/api-utils';
+import { codeGenerator } from '../../utils/number-utils';
 import StoreModule from '../module';
 
 class Catalog extends StoreModule {

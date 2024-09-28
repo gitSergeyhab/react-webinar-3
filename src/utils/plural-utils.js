@@ -1,7 +1,3 @@
-import { languageDict } from "../const";
-import { dictionary } from "../dictionaries";
-
-
 /**
  * Плюрализация
  * Возвращает вариант с учётом правил множественного числа под указанную локаль
@@ -18,34 +14,4 @@ export function plural(value, variants = {}, locale = 'ru-RU') {
   const key = new Intl.PluralRules(locale).select(value);
   // Возвращаем вариант по ключу, если он есть
   return variants[key] || '';
-}
-
-/**
- * Переводит
- * @param {string} langKey
- * @param {string} wordKey
- * @param {number} count
- * @returns
- */
-export const translate = (langKey, wordKey, count) => {
-  const dict = dictionary[langKey];
-  const word = dict[wordKey];
-  if (!word) {
-    console.error('Неизвестное слово', wordKey);
-    return wordKey;
-  }
-  if (count) return plural(count, word, languageDict[langKey].code);
-  return typeof word === 'string' ? word : Object.values(word)[0];
-};
-
-/**
- * Использовать, если ф-ция перевода не задана
- * @param {string} word
- * @param {number} count
- * @param {string} locale
- * @returns
- */
-export const noTranslate = (word, count, locale) => {
-  if (typeof word === 'string') return word;
-  return plural(count ?? 1, word, locale);
 }

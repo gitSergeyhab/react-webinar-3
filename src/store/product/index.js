@@ -1,4 +1,4 @@
-import { getArticleUri } from '../../utils';
+import { getArticleUri } from '../../utils/api-utils';
 import StoreModule from '../module';
 
 class Product extends StoreModule {

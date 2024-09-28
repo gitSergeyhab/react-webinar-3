@@ -27,16 +27,27 @@ function Basket() {
   const renders = {
     itemBasket: useCallback(
       item => {
-        return <ItemBasket item={item} onRemove={callbacks.removeFromBasket} onClick={callbacks.closeModal} />;
+        return (
+          <ItemBasket
+            item={item}
+            onRemove={callbacks.removeFromBasket}
+            onClick={callbacks.closeModal}
+            href={`/products/${item._id}`}
+            buttonText={translate('delete')}
+          />);
       },
       [callbacks.removeFromBasket],
     ),
   };
 
   return (
-    <ModalLayout title='basket' translate={translate} onClose={callbacks.closeModal}>
+    <ModalLayout
+      title={translate('basket')}
+      closeButtonText={translate('close')}
+      onClose={callbacks.closeModal}
+    >
       <List list={select.list} renderItem={renders.itemBasket} />
-      <BasketTotal sum={select.sum} translate={translate} />
+      <BasketTotal sum={select.sum} label={translate('result')} />
     </ModalLayout>
   );
 }
