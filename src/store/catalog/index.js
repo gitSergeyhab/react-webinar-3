@@ -18,14 +18,9 @@ class Catalog extends StoreModule {
     };
   }
 
-  changePage(page) {
-    const state = this.getState()
-    this.setState({...state, skip: (page - 1) * state.limit})
-    this.load();
-  }
-
-  async load() {
-    const {limit, skip} = this.getState()
+  async load(page) {
+    const {limit} = this.getState()
+    const skip = (page - 1) * limit
     const response = await fetch(getArticlesUri(limit, skip));
     const json = await response.json();
 
@@ -34,6 +29,7 @@ class Catalog extends StoreModule {
         ...this.getState(),
         list: json.result.items,
         count: json.result.count,
+        skip,
       },
       'Загружены товары из АПИ',
     );

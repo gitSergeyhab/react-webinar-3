@@ -5,7 +5,6 @@ import PaginationButton from '../pagination-button';
 import { getPagesData } from '../../utils/pagination-utils';
 import './style.css';
 
-
 function Pagination({count, limit, skip, setPage}) {
   const cn = bem('Pagination');
 

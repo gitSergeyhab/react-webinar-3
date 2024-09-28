@@ -2,9 +2,8 @@ import { memo } from 'react';
 import { cn as bem } from '@bem-react/classname';
 import PropTypes from 'prop-types';
 import ProductProperty from '../product-property';
-import './style.css';
 import { numberFormat } from '../../utils/number-utils';
-
+import './style.css';
 
 function ProductContent({ product, addToBasket, isLoading, label}) {
   const cn = bem('ProductContent');

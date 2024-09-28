@@ -1,4 +1,5 @@
 import { memo, useCallback, useEffect, useMemo } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import Item from '../../components/item';
 import PageLayout from '../../components/page-layout';
 import Head from '../../components/head';
@@ -15,10 +16,12 @@ import { menuItems } from '../../const';
 function Main() {
   const store = useStore();
   const translate = useTranslate();
+  const [params, setParams] = useSearchParams()
 
   useEffect(() => {
-    store.actions.catalog.load();
-  }, []);
+    const page = parseInt(params.get('page')) || 1;
+    store.actions.catalog.load(page);
+  }, [params]);
 
   const select = useSelector(state => ({
     list: state.catalog.list,
@@ -33,7 +36,7 @@ function Main() {
   const callbacks = {
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
-    setPage: useCallback(page => store.actions.catalog.changePage(page), [store]),
+    setPage: useCallback(page => setParams({page}) , []),
   };
 
   const renders = {
@@ -71,7 +74,6 @@ function Main() {
             totalEmpty: translate('empty'),
             buttonText: translate('go'),
           }}
-
         />
       </MenuBasketTool>
       <List list={select.list} renderItem={renders.item} />
