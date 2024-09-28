@@ -7,9 +7,9 @@ import List from '../../components/list';
 import useStore from '../../store/use-store';
 import useSelector from '../../store/use-selector';
 import Pagination from '../../components/pagination';
-import { useTranslate } from '../../hooks/use-translate';
 import MenuBasketTool from '../../components/menu-basket-tool';
 import Menu from '../../components/menu';
+import { useTranslate } from '../../hooks/use-translate';
 
 function Main() {
   const store = useStore();
@@ -24,13 +24,15 @@ function Main() {
     amount: state.basket.amount,
     sum: state.basket.sum,
     lang: state.language.key,
+    count: state.catalog.count,
+    limit: state.catalog.limit,
+    skip: state.catalog.skip,
   }));
 
   const callbacks = {
-    // Добавление в корзину
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
-    // Открытие модалки корзины
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
+    setPage: useCallback(page => store.actions.catalog.changePage(page), [store]),
   };
 
   const renders = {
@@ -55,7 +57,12 @@ function Main() {
         />
       </MenuBasketTool>
       <List list={select.list} renderItem={renders.item} />
-      <Pagination/>
+      <Pagination
+        count={select.count}
+        limit={select.limit}
+        skip={select.skip}
+        setPage={callbacks.setPage}
+      />
     </PageLayout>
   );
 }

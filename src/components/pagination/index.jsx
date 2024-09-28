@@ -1,28 +1,17 @@
 import { memo, useMemo } from 'react';
 import { cn as bem } from '@bem-react/classname';
-import useStore from '../../store/use-store';
-import useSelector from '../../store/use-selector';
 import PaginationButton from '../pagination-button';
 import { getPagesData } from '../../utils';
+import PropTypes from 'prop-types';
 import './style.css';
 
-function Pagination() {
-  const cn = bem('Pagination');
-  const store = useStore();
 
-  const {count, limit, skip} = useSelector(state => ({
-    count: state.catalog.count,
-    limit: state.catalog.limit,
-    skip: state.catalog.skip,
-  }));
+function Pagination({count, limit, skip, setPage}) {
+  const cn = bem('Pagination');
 
   const pages = useMemo(
     () => getPagesData(limit, skip, count), [limit, skip, count]
   );
-
-  const callbacks = {
-    onClick: (page) => store.actions.catalog.changePage(page),
-  };
 
   return (
     <div className={cn()}>
@@ -31,11 +20,18 @@ function Pagination() {
           key={page}
           value={value}
           isCurrent={isCurrent}
-          onClick={() => callbacks.onClick(page)}
+          onClick={() => setPage(page)}
         />
       ))}
     </div>
   );
 }
+
+Pagination.propTypes = {
+    count: PropTypes.number,
+    limit: PropTypes.number,
+    skip: PropTypes.number,
+    setPage: PropTypes.func
+};
 
 export default memo(Pagination);
