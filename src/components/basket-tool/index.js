@@ -11,7 +11,7 @@ function BasketTool({ sum, amount, onOpen }) {
   const translate = useTranslate()
   return (
     <div className={cn()}>
-      <Link className={cn('link')} to="/">{translate('main')}</Link>
+      {/* <Link className={cn('link')} to="/">{translate('main')}</Link> */}
       <span className={cn('label')}>{translate('inCart')}:</span>
       <span className={cn('total')}>
         {amount

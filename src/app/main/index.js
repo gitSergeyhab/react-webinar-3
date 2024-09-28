@@ -8,6 +8,8 @@ import useStore from '../../store/use-store';
 import useSelector from '../../store/use-selector';
 import Pagination from '../../components/pagination';
 import { useTranslate } from '../../hooks/useTranslate';
+import MenuBasketTool from '../menu-basket-tool';
+import Menu from '../menu';
 
 function Main() {
   const store = useStore();
@@ -43,7 +45,10 @@ function Main() {
   return (
     <PageLayout>
       <Head title={translate('store')} />
-      <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
+      <MenuBasketTool>
+        <Menu menuItems={[{ title: translate('main'), href: '/' }]} />
+        <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
+      </MenuBasketTool>
       <List list={select.list} renderItem={renders.item} />
       <Pagination/>
     </PageLayout>
