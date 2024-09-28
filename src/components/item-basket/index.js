@@ -1,15 +1,16 @@
 import { memo } from 'react';
 import { Link } from 'react-router-dom';
 import propTypes from 'prop-types';
-import { numberFormat } from '../../utils';
 import { cn as bem } from '@bem-react/classname';
 import PropTypes from 'prop-types';
+import { numberFormat } from '../../utils';
+import { noTranslate } from '../../utils/translate-plural-utils';
 import './style.css';
-import { useTranslate } from '../../hooks/useTranslate';
+
 
 function ItemBasket(props) {
-  const translate = useTranslate()
   const cn = bem('ItemBasket');
+  const translate = props.translate || noTranslate
 
   const callbacks = {
     onRemove: e => props.onRemove(props.item._id),
@@ -44,6 +45,7 @@ ItemBasket.propTypes = {
   }).isRequired,
   onRemove: propTypes.func,
   onClick: propTypes.func,
+  translate: PropTypes.func,
 };
 
 ItemBasket.defaultProps = {

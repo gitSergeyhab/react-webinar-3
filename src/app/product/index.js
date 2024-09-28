@@ -7,10 +7,14 @@ import useStore from '../../store/use-store';
 import useSelector from '../../store/use-selector';
 import ProductContent from '../../components/product-content';
 import { getTitle } from '../../utils';
+import MenuBasketTool from '../../components/menu-basket-tool';
+import Menu from '../../components/menu';
+import { useTranslate } from '../../hooks/use-translate';
 
 function Product() {
   const { id } = useParams();
   const store = useStore();
+  const translate = useTranslate()
 
   useEffect(() => {
     store.actions.product.setProduct(id);
@@ -37,11 +41,20 @@ function Product() {
   return (
     <PageLayout >
       <Head title={pageTitle} />
-      <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
+      <MenuBasketTool>
+        <Menu translate={translate}/>
+        <BasketTool
+          onOpen={callbacks.openModalBasket}
+          amount={select.amount}
+          sum={select.sum}
+          translate={translate}
+        />
+      </MenuBasketTool>
       <ProductContent
         product={select.product}
         addToBasket={callbacks.addToBasket}
         isLoading={select.isLoading}
+        translate={translate}
       />
     </PageLayout>
   );

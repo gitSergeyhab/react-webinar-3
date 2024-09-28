@@ -3,12 +3,12 @@ import { cn as bem } from '@bem-react/classname';
 import PropTypes from 'prop-types';
 import ProductProperty from '../product-property';
 import { numberFormat } from '../../utils';
+import { noTranslate } from '../../utils/translate-plural-utils';
 import './style.css';
-import { useTranslate } from '../../hooks/useTranslate';
 
-function ProductContent({ product, addToBasket, isLoading}) {
+
+function ProductContent({ product, addToBasket, isLoading, translate = noTranslate}) {
   const cn = bem('ProductContent');
-  const translate = useTranslate()
 
   if(isLoading) {
     return <div className={cn()}>Загрузка...</div>
@@ -42,6 +42,7 @@ ProductContent.propTypes = {
     }),
   }).isRequired,
   addToBasket: PropTypes.func,
+  translate: PropTypes.func
 };
 
 export default memo(ProductContent);

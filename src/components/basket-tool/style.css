@@ -1,4 +1,3 @@
-/* Контрол с общими действиями */
 .BasketTool {
   display: flex;
   justify-content: flex-end;
@@ -9,8 +8,4 @@
 .BasketTool-total {
   font-weight: bold;
   margin: 0 20px;
-}
-
-.BasketTool-link {
-  margin-right: auto;
 }

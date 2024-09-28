@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import { numberFormat } from '../../utils';
 import { Link } from 'react-router-dom';
-import { useTranslate } from '../../hooks/useTranslate';
+import { noTranslate } from '../../utils/translate-plural-utils';
 import './style.css';
 
 function Item(props) {
   const cn = bem('Item');
-  const translate = useTranslate()
+  const translate = props.translate || noTranslate;
 
   const callbacks = {
     onAdd: e => props.onAdd(props.item._id),
@@ -37,6 +37,7 @@ Item.propTypes = {
     price: PropTypes.number,
   }).isRequired,
   onAdd: PropTypes.func,
+  translate: PropTypes.func
 };
 
 Item.defaultProps = {
