@@ -5,23 +5,55 @@ import Main from './main';
 import Basket from './basket';
 import Article from './article';
 import Login from './login';
+import UserBlock from '../components/user-block';
+import useInit from '../hooks/use-init';
+import useStore from '../hooks/use-store';
+import Spinner from '../components/spinner';
+import Profile from './profile';
+import ProtectedRoute from '../components/protected-route';
+import useTranslate from '../hooks/use-translate';
 
 /**
  * Приложение
  * Маршрутизация по страницам и модалкам
  */
 function App() {
-  const activeModal = useSelector(state => state.modals.name);
+  const store = useStore();
+  const { t } = useTranslate();
+
+  useInit(() => {
+    store.actions.user.auth();
+  }, []);
+
+  const select = useSelector(state => ({
+    activeModal: state.modals.name,
+    profile: state.user.profile,
+    waiting: state.user.authWaiting,
+  }));
+
+  const callbacks = {
+    onLogout: useCallback(() => store.actions.user.logout(), [store]),
+  }
 
   return (
     <>
+      <UserBlock
+        userName={select.profile?.name}
+        waiting={select.authWaiting}
+        onLogout={callbacks.onLogout}
+        t={t}
+      />
       <Routes>
         <Route path={''} element={<Main />} />
         <Route path={'/articles/:id'} element={<Article />} />
         <Route path={'/login'} element={<Login />} />
+        <Route path={'/profile'} element={(
+          <ProtectedRoute user={select.profile} waiting={select.waiting}>
+            <Profile />
+          </ProtectedRoute>
+          )} />
       </Routes>
-
-      {activeModal === 'basket' && <Basket />}
+      {select.activeModal === 'basket' && <Basket />}
     </>
   );
 }

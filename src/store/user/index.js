@@ -1,79 +1,90 @@
 import { api } from '../../api';
-import { getErrorFromResponse } from '../../utils';
+import { AUTH_TOKEN } from '../../const';
 import StoreModule from '../module';
+import { getUserProfileFromUser } from './helper';
 
 class UserState extends StoreModule {
   initState() {
     return {
-      data: {},
+      profile: null,
       waiting: false,
-      error: ''
+      error: '',
+      authWaiting: true,
     };
+  }
+
+  async auth() {
+    this.setState({
+      profile: null,
+      authWaiting: true,
+    });
+
+    try {
+      const response = await api({
+        url: `/users/self`,
+        method: 'GET',
+      })
+
+      this.setState(
+        {
+          profile: getUserProfileFromUser(response.result),
+          authWaiting: false,
+        }, 'авторизация',
+      );
+    } catch (e) {
+      this.setState({
+        profile: null,
+        authWaiting: false,
+      }, 'ошибка авторизации');
+    }
+  }
+
+  async logout() {
+    try {
+      await api({
+        url: '/users/sign',
+        method: 'DELETE',
+      });
+
+      this.setState({
+        profile: null,
+      }, 'выход из аккаунта');
+
+      localStorage.removeItem(AUTH_TOKEN);
+    } catch (e) {
+      console.error('не удалось выйти из аккаунта', e)
+    }
   }
 
   async sign(data, onSuccess) {
     this.setState({
-      data: {},
+      profile: null,
       waiting: true,
     });
-
-
     try {
       const response = await api({
         url: '/users/sign',
         method: 'POST',
-        data
+        data: JSON.stringify(data),
       });
-      console.log({response})
+      localStorage.setItem(AUTH_TOKEN, response.result.token);
+      onSuccess();
       this.setState(
         {
-          data: response.result,
+          profile: getUserProfileFromUser(response.result.user),
           waiting: false,
           error: ''
-        },
-        'Юзер авторизован',
+        }, 'вход в аккаунт',
       );
     } catch (error) {
-      console.log({error})
       this.setState({
-        data: {},
+        profile: null,
         waiting: false,
         error: error.message
-      });
+      }, 'ошибка входа в аккаунт');
     }
 
-    // try {
-    //   const response = await fetch(
-    //     `/api/v1/users/sign`,
-    //     {
-    //       method: 'POST',
-    //       body: data,
-    //       headers: {
-    //         'Accept': 'application/json',
-    //         'Content-Type': 'application/json'
-    //       },
-    //     }
-    //   );
-    //   const json = await response.json();
-    //   if (!response.ok) {
-    //     throw new Error(getErrorFromResponse(json.error));
-    //   }
-    //   this.setState(
-    //     {
-    //       data: json.result,
-    //       waiting: false,
-    //       error: ''
-    //     },
-    //     'Юзер авторизован',
-    //   );
-    //   onSuccess()
-    // } catch (error) {
-    //   this.setState({
-    //     data: {},
-    //     waiting: false,
-    //     error: error.message
-    //   });
-    // }
+
   }
 }
 

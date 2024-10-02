@@ -1,22 +1,27 @@
-import { getErrorFromResponse } from "./utils";
+import { AUTH_TOKEN } from "./const";
+
+const getErrorFromResponse = (error) => {
+  const issues = error?.data?.issues;
+  const message = error?.message;
+  if (!issues || !issues.length) return message || 'Неизвестная ошибка';
+  return issues.map((issue) => issue.message).join(', ');
+};
+
 
 const BASE_URL = '/api/v1';
 
 export const api = async({url, method = 'GET', data}) => {
-
   try {
-    console.log({url, method, data})
     const response = await fetch(BASE_URL +  url, {
       method,
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
-        // 'X-Token': localStorage.getItem('token')
+        'X-Token': localStorage.getItem(AUTH_TOKEN)
       },
-      body: data ? JSON.stringify(data) : null
+      body: data
     })
       const json = await response.json();
-      console.log({json})
       if (!response.ok) {
         throw new Error(getErrorFromResponse(json.error));
       }

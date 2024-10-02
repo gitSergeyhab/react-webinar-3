@@ -1,7 +1,6 @@
 import { memo, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
-
 import './style.css';
 
 function Form ({children, onSubmit, waiting, error, textButton}) {
@@ -10,7 +9,7 @@ function Form ({children, onSubmit, waiting, error, textButton}) {
 
   const onSubmitForm = (e) => {
     e.preventDefault();
-    console.log(ref.current, 'ref.current');
+    if (!ref.current) return;
     const data = Object.fromEntries(new FormData(e.target).entries());
     onSubmit(data, () => ref.current.reset());
   }

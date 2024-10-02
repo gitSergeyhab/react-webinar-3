@@ -42,7 +42,6 @@ function CatalogFilter() {
   };
 
   const { t } = useTranslate();
-  console.log(select.categories, 'in filter')
 
   return (
     <SideLayout padding="medium">

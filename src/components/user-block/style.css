@@ -1,0 +1,11 @@
+.UserBlock {
+  background-color: white;
+  display: flex;
+  justify-content: end;
+  gap: 1rem;
+  padding: 10px 20px;
+  max-width: 1024px;
+  margin: auto;
+  box-sizing: border-box;
+  min-height: 41px;
+}

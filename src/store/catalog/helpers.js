@@ -41,7 +41,6 @@ export const toSelectCategoryData = (data) => {
     }
   }
   recurse(arr, 0)
-  console.log({result})
   return result
 }
 
@@ -53,6 +52,5 @@ export const getExistParams = (params) => {
       exist[key] = value
     }
   }
-  console.log({exist})
   return exist
 }

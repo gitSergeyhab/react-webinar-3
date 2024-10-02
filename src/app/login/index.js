@@ -29,13 +29,11 @@ function Login() {
         <LocaleSelect />
       </Head>
       <Navigation />
-      <Spinner active={waiting}>
-        <Form onSubmit={callbacks.onSubmit} waiting={waiting} error={error} textButton='Войти'>
-          <h2>Вход</h2>
-          <FormInput label='Логин' name='login' required />
-          <FormInput label='Пароль' name='password' type='password' required />
-        </Form>
-      </Spinner>
+      <Form onSubmit={callbacks.onSubmit} waiting={waiting} error={error} textButton='Войти'>
+        <h2>{t('auth.login')}</h2>
+        <FormInput label={t('auth.login-input')} name='login' required />
+        <FormInput label={t('auth.password')} name='password' type='password' required />
+      </Form>
     </PageLayout>
   );
 }

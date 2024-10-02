@@ -78,7 +78,6 @@ class CatalogState extends StoreModule {
     // Сохранить параметры в адрес страницы
     let urlSearch = new URLSearchParams(params).toString();
     const url = window.location.pathname + '?' + urlSearch + window.location.hash;
-    console.log({url})
     if (replaceHistory) {
       window.history.replaceState({}, '', url);
     } else {
