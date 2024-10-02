@@ -21,6 +21,4 @@ FormInput.propTypes = {
   required: PropTypes.bool
 };
 
-
-
 export default memo(FormInput);

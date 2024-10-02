@@ -11,6 +11,7 @@ import SideLayout from '../../components/side-layout';
  */
 function CatalogFilter() {
   const store = useStore();
+  const { t } = useTranslate();
 
   const select = useSelector(state => ({
     sort: state.catalog.params.sort,
@@ -41,8 +42,6 @@ function CatalogFilter() {
     ),
   };
 
-  const { t } = useTranslate();
-
   return (
     <SideLayout padding="medium">
       <Select options={select.categories} value={select.category} onChange={callbacks.onFilter} />
@@ -53,7 +52,6 @@ function CatalogFilter() {
         placeholder={'Поиск'}
         delay={1000}
       />
-
       <button onClick={callbacks.onReset}>{t('filter.reset')}</button>
     </SideLayout>
   );

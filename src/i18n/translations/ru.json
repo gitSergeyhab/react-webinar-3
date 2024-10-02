@@ -21,6 +21,8 @@
     "profile.phone": "Телефон",
     "auth.login": "Вход",
     "auth.login-input": "Логин",
+    "auth.login-submit": "Войти",
+    "submit.send": "Отправить",
     "auth.logout": "Выход",
     "auth.password": "Пароль"
 }

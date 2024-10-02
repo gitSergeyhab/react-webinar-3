@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
 
-function Form ({children, onSubmit, waiting, error, textButton}) {
+function Form ({children, onSubmit, waiting, error, textButton, t}) {
   const cn = bem('Form');
   const ref = useRef();
 
@@ -19,7 +19,7 @@ function Form ({children, onSubmit, waiting, error, textButton}) {
       {children}
       {error && <div className={cn('error')}>{error}</div>}
       <button disabled={waiting} type="submit" className={cn('button')}>
-        {textButton || 'Отправить'}
+        {textButton || t('submit.send')}
       </button>
     </form>
   );
@@ -31,6 +31,11 @@ Form.propTypes = {
   waiting: PropTypes.bool,
   error: PropTypes.string,
   textButton: PropTypes.string,
+  t: PropTypes.func,
+};
+
+Form.defaultProps = {
+  t: text => text,
 };
 
 export default memo(Form);

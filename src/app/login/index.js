@@ -8,7 +8,6 @@ import LocaleSelect from '../../containers/locale-select';
 import Form from '../../components/form';
 import FormInput from '../../components/form-input';
 import useSelector from '../../hooks/use-selector';
-import Spinner from '../../components/spinner';
 
 function Login() {
   const store = useStore();
@@ -29,7 +28,7 @@ function Login() {
         <LocaleSelect />
       </Head>
       <Navigation />
-      <Form onSubmit={callbacks.onSubmit} waiting={waiting} error={error} textButton='Войти'>
+      <Form onSubmit={callbacks.onSubmit} waiting={waiting} error={error} textButton={t('auth.login-submit')}>
         <h2>{t('auth.login')}</h2>
         <FormInput label={t('auth.login-input')} name='login' required />
         <FormInput label={t('auth.password')} name='password' type='password' required />

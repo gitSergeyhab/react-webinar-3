@@ -1,14 +1,13 @@
 import { AUTH_TOKEN } from "./const";
 
+const BASE_URL = '/api/v1';
+
 const getErrorFromResponse = (error) => {
   const issues = error?.data?.issues;
   const message = error?.message;
   if (!issues || !issues.length) return message || 'Неизвестная ошибка';
   return issues.map((issue) => issue.message).join(', ');
 };
-
-
-const BASE_URL = '/api/v1';
 
 export const api = async({url, method = 'GET', data}) => {
   try {

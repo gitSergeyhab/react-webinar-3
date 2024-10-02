@@ -19,6 +19,8 @@
   "profile.phone": "Phone",
   "auth.login": "Login",
   "auth.login-input": "Login",
+  "auth.login-submit": "Login",
+  "submit.send": "Send",
   "auth.logout": "Logout",
   "auth.password": "Password"
 

@@ -91,7 +91,6 @@ class CatalogState extends StoreModule {
       sort: params.sort,
       'search[query]': params.query,
       'search[category]': params.category ,
-
     };
 
     const catalog = await api({url: `/articles?${new URLSearchParams(getExistParams(apiParams))}`});
