@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import './style.css'
 
-function FormInput ({type = 'text', name, label, placeholder, required}) {
+function FormInput ({label, type='text', ...props}) {
   const cn = bem('FormInput');
   return (
     <label className={cn()}>
       {label}
-      <input type={type} placeholder={placeholder} name={name} required={required} />
+      <input className={cn('input')} type={type} {...props} />
     </label>
   );
 }

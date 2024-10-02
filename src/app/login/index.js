@@ -28,8 +28,12 @@ function Login() {
         <LocaleSelect />
       </Head>
       <Navigation />
-      <Form onSubmit={callbacks.onSubmit} waiting={waiting} error={error} textButton={t('auth.login-submit')}>
-        <h2>{t('auth.login')}</h2>
+      <Form
+        onSubmit={callbacks.onSubmit}
+        waiting={waiting} error={error}
+        textButton={t('auth.login-submit')}
+        title={t('auth.login')}
+      >
         <FormInput label={t('auth.login-input')} name='login' required />
         <FormInput label={t('auth.password')} name='password' type='password' required />
       </Form>
