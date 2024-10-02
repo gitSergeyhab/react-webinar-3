@@ -1,4 +1,6 @@
+import { api } from '../../api';
 import StoreModule from '../module';
+import { getExistParams, toSelectCategoryData } from './helpers';
 
 /**
  * Состояние каталога - параметры фильтра и список товара
@@ -10,12 +12,14 @@ class CatalogState extends StoreModule {
    */
   initState() {
     return {
+      categories: [{value: '', title: 'Все'}],
       list: [],
       params: {
         page: 1,
         limit: 10,
         sort: 'order',
         query: '',
+        category: ''
       },
       count: 0,
       waiting: false,
@@ -36,6 +40,7 @@ class CatalogState extends StoreModule {
       validParams.limit = Math.min(Number(urlParams.get('limit')) || 10, 50);
     if (urlParams.has('sort')) validParams.sort = urlParams.get('sort');
     if (urlParams.has('query')) validParams.query = urlParams.get('query');
+    if (urlParams.has('category')) validParams.category = urlParams.get('category');
     await this.setParams({ ...this.initState().params, ...validParams, ...newParams }, true);
   }
 
@@ -73,6 +78,7 @@ class CatalogState extends StoreModule {
     // Сохранить параметры в адрес страницы
     let urlSearch = new URLSearchParams(params).toString();
     const url = window.location.pathname + '?' + urlSearch + window.location.hash;
+    console.log({url})
     if (replaceHistory) {
       window.history.replaceState({}, '', url);
     } else {
@@ -85,15 +91,19 @@ class CatalogState extends StoreModule {
       fields: 'items(*),count',
       sort: params.sort,
       'search[query]': params.query,
+      'search[category]': params.category ,
+
     };
 
-    const response = await fetch(`/api/v1/articles?${new URLSearchParams(apiParams)}`);
-    const json = await response.json();
+    const catalog = await api({url: `/articles?${new URLSearchParams(getExistParams(apiParams))}`});
+    const categories = await api({url: '/categories?fields=_id,title,parent(_id)&limit=*'});
+
     this.setState(
       {
         ...this.getState(),
-        list: json.result.items,
-        count: json.result.count,
+        categories: [{value: '', title: 'Все'}, ...toSelectCategoryData(categories.result.items)],
+        list: catalog.result.items,
+        count: catalog.result.count,
         waiting: false,
       },
       'Загружен список товаров из АПИ',
