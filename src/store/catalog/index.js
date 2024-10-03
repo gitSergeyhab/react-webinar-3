@@ -1,6 +1,6 @@
 import { api } from '../../api';
 import StoreModule from '../module';
-import { getExistParams, toSelectCategoryData } from './helpers';
+import { getExistParams } from './helpers';
 
 /**
  * Состояние каталога - параметры фильтра и список товара
@@ -12,7 +12,6 @@ class CatalogState extends StoreModule {
    */
   initState() {
     return {
-      categories: [{value: '', title: 'Все'}],
       list: [],
       params: {
         page: 1,
@@ -94,12 +93,10 @@ class CatalogState extends StoreModule {
     };
 
     const catalog = await api({url: `/articles?${new URLSearchParams(getExistParams(apiParams))}`});
-    const categories = await api({url: '/categories?fields=_id,title,parent(_id)&limit=*'});
 
     this.setState(
       {
         ...this.getState(),
-        categories: [{value: '', title: 'Все'}, ...toSelectCategoryData(categories.result.items)],
         list: catalog.result.items,
         count: catalog.result.count,
         waiting: false,

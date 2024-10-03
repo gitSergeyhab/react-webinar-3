@@ -9,7 +9,10 @@ function UserBlock({ userName, waiting, onLogout, t }) {
   const navigate = useNavigate()
 
   const callbacks = {
-    onLogin: useCallback(() => navigate('/login'), [navigate]),
+    onLogin: useCallback(() =>{
+      const {pathname, search} = window.location
+      navigate('/login', {state: {from: pathname + search}})
+    }, [navigate, window.location.search, window.location.pathname]),
   };
 
   if (waiting) {

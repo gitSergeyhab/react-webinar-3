@@ -8,4 +8,5 @@
   margin: auto;
   box-sizing: border-box;
   min-height: 41px;
+  border-bottom: 1px solid #dcdcdc;
 }

@@ -4,7 +4,9 @@ import { Navigate } from 'react-router-dom';
 
 function ProtectedRoute({ user, waiting, children }) {
   if (waiting) return <h1>Проверка авторизации</h1>;
-  if (!user) return <Navigate to="/login" />
+  if (!user) return <Navigate to="/login" state={{
+    from: window.location.pathname + window.location.search
+  }} />
   return children;
 }
 

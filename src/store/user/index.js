@@ -49,11 +49,13 @@ class UserState extends StoreModule {
       this.setState({
         profile: null,
       }, 'выход из аккаунта');
-
       localStorage.removeItem(AUTH_TOKEN);
     } catch (e) {
       console.error('не удалось выйти из аккаунта', e)
     }
+  }
+  resetError() {
+    this.setState({ ...this.getState(), error: ''});
   }
 
   async sign(data, onSuccess) {
@@ -83,8 +85,6 @@ class UserState extends StoreModule {
         error: error.message
       }, 'ошибка входа в аккаунт');
     }
-
-
   }
 }
 

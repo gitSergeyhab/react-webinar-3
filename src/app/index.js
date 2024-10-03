@@ -21,8 +21,9 @@ function App() {
   const store = useStore();
   const { t } = useTranslate();
 
-  useInit(() => {
+  useEffect(() => {
     store.actions.user.auth();
+    store.actions.category.load()
   }, []);
 
   const select = useSelector(state => ({
