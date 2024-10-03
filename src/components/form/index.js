@@ -11,7 +11,7 @@ function Form ({children, onSubmit, waiting, error, textButton, title, t}) {
     e.preventDefault();
     if (!ref.current) return;
     const data = Object.fromEntries(new FormData(e.target).entries());
-    onSubmit(data, () => ref.current.reset());
+    onSubmit(data);
   }
 
   return (
