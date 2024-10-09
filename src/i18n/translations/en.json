@@ -31,5 +31,6 @@
   "comments.new-comment": "New comment",
   "comments.new-answer": "New answer",
   "comments.placeholder": "Text",
-  "comments.no-auth-link": "Sign in"
+  "comments.no-auth-link": "Sign in",
+  "comments.deleted-comment": "Comment deleted"
 }

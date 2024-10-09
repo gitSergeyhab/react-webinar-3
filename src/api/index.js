@@ -20,10 +20,12 @@ class APIService {
    * @returns {Promise<{}>}
    */
   async request({ url, method = 'GET', headers = {}, ...options }) {
+    const lang = this.services?.i18n?.getLang();
+    console.log({ lang },this.services, 'request___________________');
     if (!url.match(/^(http|\/\/)/)) url = this.config.baseUrl + url;
     const res = await fetch(url, {
       method,
-      headers: { ...this.defaultHeaders, ...headers },
+      headers: { ...this.defaultHeaders, ...headers, 'Accept-Language': lang || 'ru' },
       ...options,
     });
     return { data: await res.json(), status: res.status, headers: res.headers };

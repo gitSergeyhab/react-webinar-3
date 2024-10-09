@@ -18,7 +18,7 @@ function Comment({comment, openCommentId, onCancel, onAdd, onOpen, isAuth, t = t
         <div className={cn('user')}>{author.profile.name}</div>
         <div className={cn('date')}>{toCommentDate(dateCreate)}</div>
       </div>
-      <p className={cn('text')}>{ isDeleted ? t('comments.deleted_comment') : text}</p>
+      <p className={cn('text')}>{ isDeleted ? t('comments.deleted-comment') : text}</p>
       <button className={cn('answer-btn')} onClick={() => onOpen(_id)}>
         {t('comments.answer')}
       </button>

@@ -32,5 +32,6 @@
   "comments.not-auth-text-answer": ", чтобы иметь возможность отвечать",
   "comments.new-comment": "Новый комментарий",
   "comments.new-answer": "Новый ответ",
-  "comments.placeholder": "Текст"
+  "comments.placeholder": "Текст",
+  "comments.deleted-comment": "Комментарий удалён"
 }

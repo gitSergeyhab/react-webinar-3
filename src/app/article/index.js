@@ -23,11 +23,16 @@ function Article() {
   const dispatch = useDispatch();
 
   const params = useParams();
+  const { t, lang } = useTranslate();
+
 
   useInit(() => {
     dispatch(articleActions.load(params.id));
+  }, [params.id, lang]);
+
+  useInit(() => {
     dispatch(commentsActions.load(params.id));
-  }, [params.id]);
+  }, [params.id]); // комментам язык не нужен
 
   const select = useSelectorRedux(
     state => ({
@@ -47,7 +52,6 @@ function Article() {
     }),
   );
 
-  const { t } = useTranslate();
 
   const callbacks = {
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),

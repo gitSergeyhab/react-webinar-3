@@ -1,9 +1,34 @@
-import { useCallback, useContext } from 'react';
-import { I18nContext } from '../i18n/context';
+import { useState, useEffect } from 'react';
+import useServices from './use-services';
 
-/**
- * Хук возвращает функцию для локализации текстов, код языка и функцию его смены
- */
 export default function useTranslate() {
-  return useContext(I18nContext);
+  const { i18n } = useServices(); // Получаем I18nService через сервисы
+  const [lang, setLangState] = useState(i18n.getLang());
+
+  // Подписываемся на изменения языка при монтировании компонента
+  useEffect(() => {
+    const handleLangChange = (newLang) => {
+      setLangState(newLang); // Обновляем состояние языка
+    };
+
+    // Подписка на изменения в I18nService
+    i18n.subscribe(handleLangChange);
+
+    // Отписываемся при размонтировании компонента
+    return () => {
+      i18n.unsubscribe(handleLangChange);
+    };
+  }, [i18n]);
+
+  // Функция для изменения языка
+  const setLang = (newLang) => {
+    i18n.setLang(newLang); // Вызываем метод setLang из I18nService
+  };
+
+  // Возвращаем функцию перевода и изменения языка
+  const translate = (text, number) => {
+    return i18n.translate(text, number);
+  };
+
+  return { t: translate, lang, setLang }; // Возвращаем перевод, текущий язык и функцию для его изменения
 }
