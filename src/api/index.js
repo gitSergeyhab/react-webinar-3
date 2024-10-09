@@ -21,7 +21,6 @@ class APIService {
    */
   async request({ url, method = 'GET', headers = {}, ...options }) {
     const lang = this.services?.i18n?.getLang();
-    console.log({ lang },this.services, 'request___________________');
     if (!url.match(/^(http|\/\/)/)) url = this.config.baseUrl + url;
     const res = await fetch(url, {
       method,

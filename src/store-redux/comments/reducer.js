@@ -6,7 +6,6 @@ export const initialState = {
 };
 
 function reducer(state = initialState, action) {
-  console.log({ action });
   switch (action.type) {
     case 'comments/load-start': return { ...state, items: [], waiting: true };
     case 'comments/load-success': {
@@ -22,8 +21,7 @@ function reducer(state = initialState, action) {
     }
     case 'comments/add-error':
       return { ...state, waiting: false, error: 'Ошибка добавления комментария' };
-    default:
-      return state;
+    default: return state;
   }
 }
 

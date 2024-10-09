@@ -61,7 +61,6 @@ function CatalogFilter() {
   };
 
   const { t } = useTranslate();
-  console.log(listToTree(select.categories))
 
   return (
     <SideLayout padding="medium">
