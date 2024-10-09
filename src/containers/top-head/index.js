@@ -16,6 +16,7 @@ function TopHead() {
     exists: state.session.exists,
   }));
 
+  console.log({ select }, 'TopHead');
   const callbacks = {
     // Переход к авторизации
     onSignIn: useCallback(() => {

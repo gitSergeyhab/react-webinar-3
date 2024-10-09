@@ -1,0 +1,23 @@
+.CommentNoAuth {
+  display: flex;
+  margin-bottom: 30px;
+  align-items: center;
+}
+
+.CommentNoAuth-button {
+  margin-left: 2px;
+  border: none;
+  background-color: transparent;
+  font-size: inherit;
+  color: gray;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.CommentNoAuth-button:hover {
+  color: black;
+}
+
+.CommentNoAuth-link:hover {
+  color: black;
+}
