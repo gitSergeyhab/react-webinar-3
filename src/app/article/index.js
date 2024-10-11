@@ -45,10 +45,10 @@ function Article() {
     shallowequal,
   ); // Нужно указать функцию для сравнения свойства объекта, так как хуком вернули объект
 
-  const {isAuth, userName} = useSelector(
+  const {userId, userName, u} = useSelector(
     state => ({
       userName: state.session.user?.profile?.name,
-      isAuth: state.session.exists,
+      userId: state.session.user?._id,
     }),
   );
 
@@ -74,7 +74,7 @@ function Article() {
           count={select.commentsCount}
           articleId={params.id}
           onAdd={callbacks.addComment}
-          isAuth={isAuth}
+          userId={userId}
           t={t}
         />
       </Spinner>

@@ -24,7 +24,7 @@ function CommentForm({ onAdd, onCancel, title, cancelButtonText, t}) {
   return (
     <form className={cn()} onSubmit={onSend}>
       <h3 className={cn('title')}>{title}</h3>
-      <textarea ref={ref} className={cn('textarea')} placeholder={t('comments.placeholder')} />
+      <textarea ref={ref} className={cn('textarea')} />
       <div className={cn('actions')}>
         <button>{t('comments.send')}</button>
         {cancelButtonText && <button onClick={onCancel}>{cancelButtonText}</button>}

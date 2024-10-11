@@ -4,10 +4,13 @@ import { cn as bem } from '@bem-react/classname';
 import Comment from '../comment';
 import './style.css';
 
-function CommentList({comments, onAdd, openCommentId, onCancel, onOpen, t, isChildList, isAuth}) {
+const MIN_LEVEL_INDENT = 2;
+const MAX_LEVEL_INDENT = 5;
+
+function CommentList({comments, onAdd, openCommentId, onCancel, onOpen, t, isChildList, userId, level, children}) {
   const cn = bem('CommentList');
   return (
-    <ul className={cn({child: isChildList})}>
+    <ul className={cn({child: isChildList, indent: level <= MAX_LEVEL_INDENT && level >= MIN_LEVEL_INDENT})}>
       {comments?.map(comment => (
         <li key={comment._id}>
           <Comment
@@ -16,11 +19,13 @@ function CommentList({comments, onAdd, openCommentId, onCancel, onOpen, t, isChi
             onAdd={onAdd}
             onCancel={onCancel}
             onOpen={onOpen}
-            isAuth={isAuth}
+            userId={userId}
+            level={level}
             t={t}
           />
         </li>
       ))}
+      {children}
     </ul>
   );
 }
@@ -32,8 +37,10 @@ CommentList.propTypes = {
   onCancel: PropTypes.func,
   onOpen: PropTypes.func,
   isChildList: PropTypes.bool,
-  isAuth: PropTypes.bool,
+  userId: PropTypes.string,
+  level: PropTypes.number,
   t: PropTypes.func,
+  children: PropTypes.node,
 };
 
 export default memo(CommentList);

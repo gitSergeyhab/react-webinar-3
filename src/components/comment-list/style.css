@@ -4,7 +4,7 @@
   margin: 0;
 }
 
-.CommentList_child {
+.CommentList_indent {
   list-style: none;
   padding-left: 30px;
 }
